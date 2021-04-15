@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "espruino": "^0.1.38"
+  }
+}
