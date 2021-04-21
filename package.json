@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "espruino": "^0.1.38"
+    "@abandonware/bluetooth-hci-socket": "^0.5.3-7",
+    "bluetooth-hci-socket": "^0.5.1",
+    "espruino": "^0.1.38",
+    "noble": "^1.9.1"
   }
 }
