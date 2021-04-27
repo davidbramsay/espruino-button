@@ -46,6 +46,7 @@ class EspruinoConnectorThread(threading.Thread):
             command = command[20:]
 
         while True:
+            print('esp thread')
             self.wait_sec(60)
 
     def read_js_to_send(self, js_filename):
@@ -74,5 +75,7 @@ if __name__=='__main__':
 
     E = EspruinoConnectorThread(callback)
     E.start()
-    time.sleep(30)
+    while True:
+        print('main thread')
+        time.sleep(30)
     print 'Done'

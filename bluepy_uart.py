@@ -50,6 +50,7 @@ while len(command)>0:
   nustx.write(command[0:20]);
   command = command[20:];
 # wait for data to be received
-while p.waitForNotifications(60.0): pass
-# No more data for 1 min, disconnect
+while True:
+    p.waitForNotifications(30.0)
+    print ('loop')
 p.disconnect()
