@@ -89,6 +89,8 @@ class EspruinoConnector():
 
 if __name__=='__main__':
 
+    time.sleep(60)
+
     def guitarTimeoutCallback():
         global gGuitarPlaying
         requests.get('http://pihub.local:5000/fadeout')
@@ -126,11 +128,11 @@ if __name__=='__main__':
                 requests.get('http://pihub.local:5000/setlight/0/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/setlight/1/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/setlight/2/color/blue/dim/10')
-                requests.get('http://pihub.local:5000/setlight/0/color/blue/dim/10')
-                requests.get('http://pihub.local:5000/setlight/1/color/blue/dim/10')
-                requests.get('http://pihub.local:5000/setlight/2/color/blue/dim/10')
-                requests.get('http://pihub.local:5000/setlight/1/color/blue/dim/10')
-                requests.get('http://pihub.local:5000/setlight/2/color/blue/dim/10')
+                requests.get('http://pihub.local:5000/setlight/3/color/blue/dim/10')
+                requests.get('http://pihub.local:5000/setlight/4/color/blue/dim/10')
+                requests.get('http://pihub.local:5000/setlight/5/color/blue/dim/10')
+                requests.get('http://pihub.local:5000/setlight/6/color/blue/dim/10')
+                requests.get('http://pihub.local:5000/setlight/7/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/fadein')
                 requests.get('http://pihub.local:5000/outlets/off')
                 time.sleep(5)
