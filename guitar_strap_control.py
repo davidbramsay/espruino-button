@@ -3,16 +3,10 @@ import atexit
 import time
 import threading
 from bluepy import btle
-import logging, threading, functools
 import time
 import requests
 import os
 
-logging.basicConfig(level=logging.NOTSET,
-                    format='%(threadName)s %(message)s')
-
-global gGuitarPlaying
-global gTimer
 
 class Timer(object):
     def __init__(self, interval, callback):
@@ -148,11 +142,6 @@ if __name__=='__main__':
                 gTimer.start()
             else:
                 gTimer.restart()
-
-    #this is to work with monit
-    pid = str(os.getpid())
-    with open('/tmp/buttonserver.pid','w') as file:
-        file.write(pid)
 
     E = EspruinoConnector(motionCallback)
     E.run_forever()
