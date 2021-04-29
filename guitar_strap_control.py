@@ -95,8 +95,11 @@ if __name__=='__main__':
         global gGuitarPlaying
         requests.get('http://pihub.local:5000/fadeout')
         requests.get('http://pihub.local:5000/play/fireplace')
+        requests.get('http://pitwo.local:5000/play/black')
+        requests.get('http://mini.local:5000/reverb/off')
         requests.get('http://pihub.local:5000/outlets/on')
         time.sleep(5)
+        requests.get('http://mini.local:5000/background/crickets')
         requests.get('http://pihub.local:5000/setlight/0/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/setlight/1/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/setlight/2/color/yellow/dim/15')
@@ -107,6 +110,7 @@ if __name__=='__main__':
         requests.get('http://pihub.local:5000/setlight/7/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/outlets/on')
         time.sleep(1)
+        requests.get('http://mini.local:5000/spotify/ambient')
         gGuitarPlaying = False
 
     gGuitarPlaying = False
@@ -122,8 +126,10 @@ if __name__=='__main__':
             print 'accel'
             if not gGuitarPlaying:
                 gGuitarPlaying = True
+                requests.get('http://mini.local:5000/background/off')
                 requests.get('http://pihub.local:5000/outlets/off')
                 requests.get('http://pihub.local:5000/lightoff')
+                requests.get('http://mini.local:5000/spotify/pause')
                 time.sleep(1)
                 requests.get('http://pihub.local:5000/setlight/0/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/setlight/1/color/blue/dim/10')
@@ -135,8 +141,10 @@ if __name__=='__main__':
                 requests.get('http://pihub.local:5000/setlight/7/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/fadein')
                 requests.get('http://pihub.local:5000/outlets/off')
-                time.sleep(5)
+                requests.get('http://mini.local:5000/reverb/on')
+                time.sleep(0.5)
                 requests.get('http://pihub.local:5000/play/jellyfish')
+                requests.get('http://pitwo.local:5000/play/jellyfish')
                 gTimer.start()
             else:
                 gTimer.restart()
