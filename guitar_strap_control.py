@@ -83,17 +83,20 @@ class EspruinoConnector():
 
 if __name__=='__main__':
 
-    time.sleep(60)
+    time.sleep(5)
 
     def guitarTimeoutCallback():
         global gGuitarPlaying
         requests.get('http://pihub.local:5000/fadeout')
         requests.get('http://pihub.local:5000/play/fireplace')
-        requests.get('http://pitwo.local:5000/play/black')
-        requests.get('http://mini.local:5000/reverb/off')
+        #requests.get('http://pitwo.local:5000/play/black')
         requests.get('http://pihub.local:5000/outlets/on')
-        time.sleep(5)
+        time.sleep(1)
         requests.get('http://mini.local:5000/background/crickets')
+        time.sleep(.1)
+        requests.get('http://mini.local:5000/reverb/off')
+        time.sleep(.1)
+        #requests.get('http://mini.local:5000/spotify/ambient')
         requests.get('http://pihub.local:5000/setlight/0/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/setlight/1/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/setlight/2/color/yellow/dim/15')
@@ -103,8 +106,7 @@ if __name__=='__main__':
         requests.get('http://pihub.local:5000/setlight/6/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/setlight/7/color/yellow/dim/15')
         requests.get('http://pihub.local:5000/outlets/on')
-        time.sleep(1)
-        requests.get('http://mini.local:5000/spotify/ambient')
+        time.sleep(5)
         gGuitarPlaying = False
 
     gGuitarPlaying = False
@@ -117,14 +119,20 @@ if __name__=='__main__':
         if '1' in data or '0' in data:
             print 'button'
         if '2' in data:
-            print 'accel'
-            if not gGuitarPlaying:
+            paused = requests.get('http://pihub.local:5000/paused')
+            paused = paused.json()
+
+            if not gGuitarPlaying and not paused:
+                print 'accel- starting guitar'
                 gGuitarPlaying = True
-                requests.get('http://mini.local:5000/background/off')
-                requests.get('http://pihub.local:5000/outlets/off')
                 requests.get('http://pihub.local:5000/lightoff')
-                requests.get('http://mini.local:5000/spotify/pause')
+                requests.get('http://pihub.local:5000/outlets/off')
                 time.sleep(1)
+                requests.get('http://mini.local:5000/background/off')
+                time.sleep(.1)
+                requests.get('http://mini.local:5000/reverb/on')
+                time.sleep(.1)
+                #requests.get('http://mini.local:5000/spotify/pause')
                 requests.get('http://pihub.local:5000/setlight/0/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/setlight/1/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/setlight/2/color/blue/dim/10')
@@ -135,13 +143,15 @@ if __name__=='__main__':
                 requests.get('http://pihub.local:5000/setlight/7/color/blue/dim/10')
                 requests.get('http://pihub.local:5000/fadein')
                 requests.get('http://pihub.local:5000/outlets/off')
-                requests.get('http://mini.local:5000/reverb/on')
-                time.sleep(0.5)
                 requests.get('http://pihub.local:5000/play/jellyfish')
-                requests.get('http://pitwo.local:5000/play/jellyfish')
+                time.sleep(5)
+                #requests.get('http://pitwo.local:5000/play/jellyfish')
                 gTimer.start()
-            else:
+            elif not paused:
+                print('accel- extend')
                 gTimer.restart()
+            else:
+                print('accel- paused')
 
     E = EspruinoConnector(motionCallback)
     E.run_forever()
